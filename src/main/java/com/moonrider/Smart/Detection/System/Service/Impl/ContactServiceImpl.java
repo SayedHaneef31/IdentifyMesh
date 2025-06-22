@@ -68,9 +68,11 @@ public class ContactServiceImpl implements ContactService {
                     .collect(Collectors.toSet());
 
             //fetching more contacts from the database that are linked to our primaryIds
-            List<Contact> allLinkedContacts = contactRepo.findAll().stream()
-                    .filter(c -> primaryIds.contains(c.getLinkedId()) || primaryIds.contains(c.getId()))
-                    .toList();
+//            List<Contact> allLinkedContacts = contactRepo.findAll().stream()
+//                    .filter(c -> primaryIds.contains(c.getLinkedId()) || primaryIds.contains(c.getId()))
+//                    .toList();
+            List<Contact> allLinkedContacts = contactRepo.findByIdInOrLinkedIdIn(primaryIds, primaryIds);    //this is faster...does not load the whole db table
+
             //Adding them to the identityGroup
             identityGroup.addAll(allLinkedContacts);
 

@@ -11,7 +11,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "contacts", indexes = {
+        @Index(columnList = "email"),
+        @Index(columnList = "phoneNumber"),
+        @Index(columnList = "linkedId"),
+        @Index(columnList = "createdAt")
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
