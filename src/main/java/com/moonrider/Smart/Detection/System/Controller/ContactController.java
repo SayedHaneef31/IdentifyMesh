@@ -6,6 +6,8 @@ import com.moonrider.Smart.Detection.System.Entity.DTO.IdentifyResponseDto;
 import com.moonrider.Smart.Detection.System.Entity.DTO.SimpleResponseDto;
 import com.moonrider.Smart.Detection.System.Repository.ContactRepo;
 import com.moonrider.Smart.Detection.System.Service.ContactService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +25,10 @@ public class ContactController
     }
 
     @PostMapping("/identify")
-    public IdentifyResponseDto identifyTheUser(@RequestBody IdentifyRequestDto identifyRequestDto)
+    public ResponseEntity<IdentifyResponseDto> identifyTheUser(@RequestBody IdentifyRequestDto identifyRequestDto)
     {
-        return contactService.identifyUser(identifyRequestDto);
+        IdentifyResponseDto response = contactService.identifyUser(identifyRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/fetch-all")
